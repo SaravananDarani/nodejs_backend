@@ -86,7 +86,6 @@ user.create = (req) => {
 
 
 user.update = (req) => {
-    console.log(req)
     var deferred = new Q.defer();
     let requestData = req.body;
 

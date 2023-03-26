@@ -59,7 +59,6 @@ const sendEmail = (to, name, type, db) => {
 
             smtpTransport.sendMail(mail, function (error, response) {
                 if (error) {
-                    console.log(error)
                     var reslog = {
                         error: 'true',
                         message: error
@@ -67,7 +66,6 @@ const sendEmail = (to, name, type, db) => {
                     deferred.reject(reslog);
 
                 } else {
-                    console.log(" email sent successfully")
                     var reslog = {
                         error: 'false',
                         message: 'Mail Sent Successfully'

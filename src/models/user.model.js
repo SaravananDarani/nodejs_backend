@@ -132,14 +132,12 @@ user.updateOtp = (req) => {
                     .then(function (results) {
 
                         if (dataJson.db.length) {
-                            console.log('true')
                             var reslog = {
                                 status: 'success',
                                 message: 'User Active Successfully'
                             };
                             deferred.resolve(reslog);
                         } else {
-                            console.log('false')
                             var reslog = {
                                 status: 'failed',
                                 message: ' OTP  Invalided'
@@ -209,14 +207,12 @@ user.resendOtp = (req) => {
                         sendEmail(dataJson.email, dataJson.email, 'hello', htmldb)
 
                         if (results.length) {
-                            console.log('true')
                             var reslog = {
                                 status: 'success',
                                 message: 'Otp Resend Successfully'
                             };
                             deferred.resolve(reslog);
                         } else {
-                            console.log('false')
                             var reslog = {
                                 status: 'failed',
                                 message: ' OTP  Invalided'
@@ -326,9 +322,7 @@ user.login = (req) => {
     let requestData = req.body;
     try {
         var md5Password = utility.encrypt(requestData.password);
-        // var md5Passwords = utility.decrypt(requestData.password);
-        // console.log(md5Passwords);
-        console.log("2", requestData)
+        // var md5Passwords = utility.decrypt(requestData.password); 
         if (requestData.hasOwnProperty('email') && typeof requestData.email != "undefined") {
             requestData.email = requestData.email.toLowerCase();
         }
@@ -352,7 +346,6 @@ user.login = (req) => {
                 }
             }
             if (msg.length == 0) {
-                console.log("True");
                 var sqlQry1 = '',
                     err_msg = '';
                 sqlQry1 = 'SELECT * FROM mst_user   WHERE email= :username AND password = :password';
@@ -406,13 +399,11 @@ user.login = (req) => {
 user.findById = (userId, result) => {
     sqlapi.selectData(`SELECT * FROM mst_user WHERE id = ${userId}`, (err, res) => {
         if (err) {
-            console.log("error: ", err);
             result(err, null);
             return;
         }
 
         if (res.length) {
-            console.log("found user: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -540,7 +531,6 @@ user.delete = (req) => {
 
 
 user.update = (req) => {
-    console.log(req)
     var deferred = new Q.defer();
     let requestData = req.body;
 
@@ -610,7 +600,6 @@ user.updateById = (id, user, result) => {
         [user.email, user.name, user.active, id],
         (err, res) => {
             if (err) {
-                console.log("error: ", err);
                 result(null, err);
                 return;
             }
@@ -621,7 +610,6 @@ user.updateById = (id, user, result) => {
                 return;
             }
 
-            console.log("updated user: ", { id: id, ...user });
             result(null, { id: id, ...user });
         }
     );
@@ -630,7 +618,6 @@ user.updateById = (id, user, result) => {
 user.remove = (id, result) => {
     sql.query("DELETE FROM mst_user WHERE id = ?", id, (err, res) => {
         if (err) {
-            console.log("error: ", err);
             result(null, err);
             return;
         }
@@ -641,7 +628,6 @@ user.remove = (id, result) => {
             return;
         }
 
-        console.log("deleted user with id: ", id);
         result(null, res);
     });
 };
@@ -649,12 +635,9 @@ user.remove = (id, result) => {
 user.removeAll = result => {
     sql.query("DELETE FROM mst_user", (err, res) => {
         if (err) {
-            console.log("error: ", err);
             result(null, err);
             return;
         }
-
-        console.log(`deleted ${res.affectedRows} users`);
         result(null, res);
     });
 };
