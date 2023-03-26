@@ -4,6 +4,7 @@
 /node_modules
 /lab
 /.pnp
+/public
 .pnp.js
 note
 package-lock.json
